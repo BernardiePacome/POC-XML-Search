@@ -26,11 +26,12 @@ class XmlController
             $xml = $file->getContents();
         }
 
-        $json = json_encode(simplexml_load_string($xml));
+        
 
-        $response = new Response(json_encode(array('feed' => $json)));
+        $response = new Response(json_encode(array('feed' => $xml)));
+        $response->headers->set('Access-Control-Allow-Origin', 'http://localhost:4200');
         $response->headers->set('Content-Type', 'application/json');
-
+        $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, PATCH, OPTIONS');
         return $response;
     }
 }
