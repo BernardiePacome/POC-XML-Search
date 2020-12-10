@@ -11,8 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FeedService } from './feed.service';
 import { FeedCardComponent } from './components/feed-card/feed-card.component';
+import { FeedComponent } from './components/feed/feed.component';
 @NgModule({
-  declarations: [AppComponent, FeedCardComponent],
+  declarations: [AppComponent, FeedCardComponent, FeedComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
