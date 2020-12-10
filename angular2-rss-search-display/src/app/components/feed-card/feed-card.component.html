@@ -1,9 +1,9 @@
-<mat-card>
+<mat-card *ngFor="let item of items">
     <mat-card-header>
-        <mat-card-title>title</mat-card-title>
-        <mat-card-subtitle>Author</mat-card-subtitle>
+        <mat-card-title>{{item.title}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        Description
+      {{item.description}}
     </mat-card-content>
+  <mat-card-footer>{{item.publishDate}} {{item.link}}</mat-card-footer>
 </mat-card>
