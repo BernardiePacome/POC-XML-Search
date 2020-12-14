@@ -12,6 +12,8 @@ import {FeedEntry} from './model/feed-entry';
 })
 export class FeedService {
 
+  searchOption: any = [];
+
   constructor(
     private http: HttpClient,
   ) {

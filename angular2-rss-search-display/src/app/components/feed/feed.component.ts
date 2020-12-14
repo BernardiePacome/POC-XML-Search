@@ -20,7 +20,6 @@ export class FeedComponent implements OnInit {
   ngOnInit(): void {
     this.fs.getXMLFile().subscribe((res) => {
       this.rssFeed = this.fs.parseXMLFiletoFeed(res);
-      console.log(this.rssFeed);
     });
 
   }
