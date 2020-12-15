@@ -9,4 +9,20 @@ mat-toolbar {
 form, mat-form-field {
   width: 100%;
 }
+.search-container{
+  display: flex;
+  &--text-container{
+    font-weight: 700;
+    flex-grow: 40;
+  }
+  &--cross-container{
+    flex-grow: 1;
+
+    &__reset-cross{
+      font-size: 25px;
+    }
+  }
+
+}
+
 

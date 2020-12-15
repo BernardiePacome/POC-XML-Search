@@ -11,6 +11,7 @@ import { FeedEntry } from '../../model/feed-entry';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { FeedService } from '../../feed.service';
+import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 
 @Component({
   selector: 'app-search-bar',
@@ -21,20 +22,23 @@ export class SearchBarComponent implements OnInit {
   @ViewChild('autocompleteInput') autoCompleteInput: ElementRef | undefined;
 
   @Input() matAutoComplete: any;
-  @Output() selectedOption = new EventEmitter();
+  @Output() selectedFeedEntry = new EventEmitter<FeedEntry>();
+  @Output() searchQueryList = new EventEmitter<FeedEntry[]>();
 
+  faTimes = faTimes;
   feeds: FeedEntry[] | undefined;
   myFormControl = new FormControl();
   filteredOptions: Observable<string[]> | undefined;
   autoCompleteList: any[] | undefined;
   searchResults: FeedEntry[] = [];
+  searchQueryText = '';
 
   constructor(private fs: FeedService) {}
 
   ngOnInit(): void {
     this.myFormControl.valueChanges.subscribe((userInput) => {
       this.autoCompleteList = this.filterByTitle(userInput);
-      console.log('subscribe', this.filterByTitle(userInput));
+      this.searchQueryText = userInput;
     });
     this.fs.getXMLFile().subscribe((res) => {
       this.feeds = this.fs.parseXMLFiletoFeed(res).items;
@@ -46,31 +50,24 @@ export class SearchBarComponent implements OnInit {
       return [];
     }
 
-    console.log(
-      this.feeds?.filter((s) => {
-        return s.title.toLowerCase().indexOf(input.toLowerCase()) !== -1;
-      })
-    );
-
     return this.feeds?.filter(
       (s) => s.title.toLowerCase().indexOf(input.toLowerCase()) !== -1
     );
   }
 
-  displayFunction(feedEntry: FeedEntry): string {
-    return feedEntry ? feedEntry.title : feedEntry;
+  selectFeedEntry(feedEntry: FeedEntry): void {
+    this.selectedFeedEntry.emit(feedEntry);
+    this.searchQueryList.emit(
+      this.feeds?.filter(
+        (s) =>
+          s.title.toLowerCase().indexOf(this.searchQueryText.toLowerCase()) !==
+          -1
+      )
+    );
   }
 
-  filterFeedsList(event: any): void {
-    const query = event.source.value;
-    if (!query) {
-      this.fs.searchOption = [];
-    } else {
-      this.fs.searchOption.push(query);
-      this.selectedOption.emit(this.fs.searchOption);
-    }
-    this.autoCompleteInput?.nativeElement.focus();
-    // @ts-ignore
-    this.autoCompleteInput?.nativeElement.value = '';
+  resetForm(): void {
+    this.myFormControl.patchValue('');
+    this.searchQueryText = '';
   }
 }

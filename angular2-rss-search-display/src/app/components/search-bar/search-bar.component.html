@@ -1,19 +1,28 @@
 <mat-toolbar>
   <form class="rss-search-form">
     <mat-form-field class="full-width">
-      <div class="container container-fluid">
-        <input #autocompleteInput type="text"
-               placeholder="Search RSS Feed"
-               matInput [formControl]="myFormControl"
-               [matAutocomplete]="auto">
-        <mat-autocomplete #auto >
-          <mat-option *ngFor="let option of autoCompleteList"
-                      [value]="option.title"
-                      (onSelectionChange)="filterFeedsList($event)"
-          >
-           {{option.title}}
-          </mat-option>
-        </mat-autocomplete>
+      <div class="container search-container">
+        <div class="container search-container--text-container">
+          <input #autocompleteInput type="text"
+                 placeholder="Search RSS Feed"
+                 matInput [formControl]="myFormControl"
+                 [matAutocomplete]="auto">
+
+          <mat-autocomplete #auto>
+            <mat-option *ngFor="let option of autoCompleteList"
+                        [value]="option.title"
+                        (click)="selectFeedEntry(option)"
+            >
+              {{option.title}}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+        <div class="container search-container--cross-container">
+          <fa-icon class="container search-container--cross-container__reset-cross" *ngIf="searchQueryText"
+                   (click)="resetForm()"
+                   [icon]="faTimes">
+          </fa-icon>
+        </div>
       </div>
     </mat-form-field>
   </form>
