@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FeedService } from './feed.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FeedBottomSheetComponent } from './components/feed-bottom-sheet/feed-bottom-sheet.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FeedCardComponent,
     FeedComponent,
     SearchBarComponent,
+    FeedBottomSheetComponent,
   ],
   imports: [
     BrowserModule,
