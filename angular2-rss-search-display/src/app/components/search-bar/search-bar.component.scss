@@ -1,8 +1,13 @@
 mat-toolbar {
+  position: relative;
+  top: 20px;
   color: white;
   background-color: darkblue;
   border-radius: 10px;
   height: 90px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 50%;
 }
 
 
@@ -10,15 +15,18 @@ form, mat-form-field {
   width: 100%;
 }
 .search-container{
+
+  padding:0;
   display: flex;
   &--text-container{
-    font-weight: 700;
-    flex-grow: 40;
+    padding: 0;
+    font-weight: 500;
+
   }
   &--cross-container{
-    flex-grow: 1;
 
     &__reset-cross{
+      float:right;
       font-size: 25px;
     }
   }

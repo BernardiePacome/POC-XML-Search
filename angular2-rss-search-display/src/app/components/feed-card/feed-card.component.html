@@ -1,6 +1,6 @@
 <mat-card *ngFor="let item of items">
     <mat-card-header>
-        <mat-card-title>{{item.title}}</mat-card-title>
+        <mat-card-title (click)="openFeedSheet(item)" class="feed-title">{{item.title}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       {{item.description}}

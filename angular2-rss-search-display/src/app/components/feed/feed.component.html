@@ -1,15 +1,18 @@
-<app-search-bar (selectedFeedEntry)="showFeed($event)" (searchQueryList)="displayPartialItems($event)">
+<div class="rss-search-container">
+  <app-search-bar (selectedFeedEntry)="showFeed($event)" (searchQueryList)="displayPartialItems($event)">
 
-</app-search-bar>
+  </app-search-bar>
 
-<div class="container rss-container">
-  <mat-card>
-    <mat-card-header></mat-card-header>
-    <mat-card-title>{{rssFeed.title}}</mat-card-title>
-    <mat-card-subtitle>{{rssFeed.description}}</mat-card-subtitle>
-    <mat-card-content>
-      <app-feed-card [items]=rssFeed.items></app-feed-card>
-    </mat-card-content>
-    <mat-card-footer></mat-card-footer>
-  </mat-card>
+  <div class="container">
+    <mat-card>
+      <mat-card-header></mat-card-header>
+      <mat-card-title>{{rssFeed.title}}</mat-card-title>
+      <mat-card-subtitle>{{rssFeed.description}}</mat-card-subtitle>
+      <mat-card-content>
+        <app-feed-card [items]=rssFeed.items></app-feed-card>
+      </mat-card-content>
+      <mat-card-footer></mat-card-footer>
+    </mat-card>
+  </div>
 </div>
+
