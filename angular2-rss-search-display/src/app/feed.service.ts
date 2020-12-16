@@ -14,10 +14,17 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 export class FeedService {
   constructor(private http: HttpClient, private bottomSheet: MatBottomSheet) {}
 
+  /**
+   * returns observer to retreive API response for the RSS feed.
+   */
   public getXMLFile(): Observable<any> {
     return this.http.get(environment.api_url + '/xml');
   }
 
+  /**
+   * parses an XML RSS feed file to set attributes of a Feed.
+   * @param file XML RSS feed file.
+   */
   public parseXMLFiletoFeed(file: any): Feed {
     const feed: Feed = {};
     const xml2json = new x2js.Parser();
@@ -46,6 +53,10 @@ export class FeedService {
     return feed;
   }
 
+  /**
+   * Opens the bottom Sheet for a selected feed entry.
+   * @param feedEntry the feed entry to display
+   */
   public openFeedSheet(feedEntry: FeedEntry): void {
     this.bottomSheet.open(FeedBottomSheetComponent, {
       data: { feed: feedEntry },

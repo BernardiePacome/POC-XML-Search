@@ -3,22 +3,23 @@
     <mat-form-field class="full-width">
       <div class="container search-container">
         <div class="container search-container--text-container">
-          <input #autocompleteInput type="text"
-                 placeholder="Search RSS Feed"
-                 matInput [formControl]="myFormControl"
-                 [matAutocomplete]="auto">
+            <input #autocompleteInput type="text"
+                   placeholder="Rechercher le Flux RSS"
+                   matInput [formControl]="myFormControl"
+                   [matAutocomplete]="auto"
+            (keyup.enter)="searchFeed($event)">
 
           <mat-autocomplete #auto>
             <mat-option *ngFor="let option of autoCompleteList"
                         [value]="option.title"
-                        (click)="selectFeedEntry(option)"
+                        (click)="showSelectedFeedEntry(option)"
             >
               {{option.title}}
             </mat-option>
           </mat-autocomplete>
         </div>
         <div class="search-container--cross-container">
-          <fa-icon class=" search-container--cross-container__reset-cross" *ngIf="searchQueryText"
+          <fa-icon class=" search-container--cross-container__reset-cross" *ngIf="autoCompleteSearchQueryText"
                    (click)="resetForm()"
                    [icon]="faTimes">
           </fa-icon>

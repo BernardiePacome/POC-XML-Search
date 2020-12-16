@@ -14,6 +14,10 @@ export class FeedCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * Opens the bottom sheet for the selected feed entry.
+   * @param feedEntry
+   */
   openFeedSheet(feedEntry: FeedEntry): void {
     this.fs.openFeedSheet(feedEntry);
   }

@@ -24,28 +24,35 @@ export class SearchBarComponent implements OnInit {
   @Input() matAutoComplete: any;
   @Output() selectedFeedEntry = new EventEmitter<FeedEntry>();
   @Output() searchQueryList = new EventEmitter<FeedEntry[]>();
+  @Output() setSearchResults = new EventEmitter<FeedEntry[]>();
 
   faTimes = faTimes;
   feeds: FeedEntry[] | undefined;
   myFormControl = new FormControl();
-  filteredOptions: Observable<string[]> | undefined;
   autoCompleteList: any[] | undefined;
-  searchResults: FeedEntry[] = [];
+  searchResults: FeedEntry[] | undefined = [];
+  autoCompleteSearchQueryText = '';
   searchQueryText = '';
+  isSearchState = false;
 
   constructor(private fs: FeedService) {}
 
   ngOnInit(): void {
     this.myFormControl.valueChanges.subscribe((userInput) => {
       this.autoCompleteList = this.filterByTitle(userInput);
-      this.searchQueryText = userInput;
+      this.autoCompleteSearchQueryText = userInput;
     });
     this.fs.getXMLFile().subscribe((res) => {
       this.feeds = this.fs.parseXMLFiletoFeed(res).items;
     });
   }
 
-  filterByTitle(input: string): FeedEntry[] | undefined {
+  /**
+   * Simple filter by title for the Auto-complete list.
+   * @param input search string.
+   * @private
+   */
+  private filterByTitle(input: string): FeedEntry[] | undefined {
     if (input === '' || input === null) {
       return [];
     }
@@ -55,19 +62,43 @@ export class SearchBarComponent implements OnInit {
     );
   }
 
-  selectFeedEntry(feedEntry: FeedEntry): void {
-    this.selectedFeedEntry.emit(feedEntry);
-    this.searchQueryList.emit(
-      this.feeds?.filter(
-        (s) =>
-          s.title.toLowerCase().indexOf(this.searchQueryText.toLowerCase()) !==
-          -1
-      )
-    );
+  /**
+   * filter by title and description for displaying the search results.
+   * @param event Keyboard Input event.
+   */
+  searchFeed(event: any): void {
+    this.searchQueryText = event.target.value as string;
+    if (this.searchQueryText === '') {
+      this.setSearchResults.emit([]);
+    } else {
+      this.setSearchResults.emit(
+        this.feeds?.filter(
+          (search) =>
+            search.title
+              .toLowerCase()
+              .indexOf(this.searchQueryText.toLowerCase()) !== -1 ||
+            search.description
+              .toLowerCase()
+              .indexOf(this.searchQueryText.toLowerCase()) !== -1
+        )
+      );
+    }
   }
 
+  /**
+   * Opens the bottom sheet for the selected feed entry.
+   * @param feedEntry Feed entry to display.
+   */
+  showSelectedFeedEntry(feedEntry: FeedEntry): void {
+    this.fs.openFeedSheet(feedEntry);
+  }
+
+  /**
+   * resets the search bar text input to empty.
+   */
   resetForm(): void {
     this.myFormControl.patchValue('');
-    this.searchQueryText = '';
+    this.autoCompleteSearchQueryText = '';
+    this.isSearchState = false;
   }
 }

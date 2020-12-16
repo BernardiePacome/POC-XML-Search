@@ -11,9 +11,10 @@ import { FeedEntry } from '../../model/feed-entry';
 export class FeedComponent implements OnInit {
   constructor(private fs: FeedService) {}
 
-  private partialItemsState = false;
-  public rssFeed: Feed = {};
-  public showFeedEntry: FeedEntry | undefined;
+  rssFeed: Feed = {};
+  displayedSearchResults: FeedEntry[] | undefined;
+  searching = false;
+  hasResults = true;
 
   ngOnInit(): void {
     this.fs.getXMLFile().subscribe((res) => {
@@ -21,13 +22,18 @@ export class FeedComponent implements OnInit {
     });
   }
 
-  showFeed(feedEntry: FeedEntry): void {
-    this.showFeedEntry = feedEntry;
-    this.fs.openFeedSheet(feedEntry);
-  }
-
-  displayPartialItems(feeds: FeedEntry[]): void {
-    this.partialItemsState = true;
-    this.rssFeed.items = feeds;
+  /**
+   * Sets the search results of the search bar and sets the states of the component.
+   * @param feeds Array of feed entries to show as results.
+   */
+  setFeedSearchResults(feeds: FeedEntry[]): void {
+    if (feeds.length === 0) {
+      this.hasResults = false;
+      this.searching = false;
+    } else {
+      this.hasResults = true;
+      this.searching = true;
+      this.displayedSearchResults = feeds;
+    }
   }
 }

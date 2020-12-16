@@ -1,8 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  MAT_BOTTOM_SHEET_DATA,
-  MatBottomSheetRef,
-} from '@angular/material/bottom-sheet';
+import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { FeedEntry } from '../../model/feed-entry';
 
 @Component({
@@ -13,13 +10,9 @@ import { FeedEntry } from '../../model/feed-entry';
 export class FeedBottomSheetComponent implements OnInit {
   displayedFeedEntry: FeedEntry | undefined;
 
-  constructor(
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { feed: any },
-    private bottomSheetRef: MatBottomSheetRef<FeedBottomSheetComponent>
-  ) {}
+  constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: { feed: any }) {}
 
   ngOnInit(): void {
     this.displayedFeedEntry = this.data.feed;
-    console.log('this.', this.data);
   }
 }
