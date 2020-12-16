@@ -1,29 +1,33 @@
 <mat-toolbar>
   <form class="rss-search-form">
     <mat-form-field class="full-width">
-      <div class="container search-container">
-        <div class="container search-container--text-container">
-            <input #autocompleteInput type="text"
-                   placeholder="Rechercher le Flux RSS"
-                   matInput [formControl]="myFormControl"
-                   [matAutocomplete]="auto"
-            (keyup.enter)="searchFeed($event)">
+      <div class="search">
+        <div class="container search__text-container">
+          <fa-icon class="search__search-icon" [icon]="faSearch"
+                   *ngIf="!autoCompleteSearchQueryText">
+          </fa-icon>
+          <input #autocompleteInput type="text"
+                 placeholder="Rechercher le Flux RSS"
+                 matInput [formControl]="myFormControl"
+                 [matAutocomplete]="auto"
 
+                 (keyup.enter)="searchFeed($event)"
+          >
           <mat-autocomplete #auto>
             <mat-option *ngFor="let option of autoCompleteList"
                         [value]="option.title"
                         (click)="showSelectedFeedEntry(option)"
             >
-              {{option.title}}
+              <fa-icon class="search__newspaper-icon" [icon]="faNewspaper"></fa-icon>
+              <span class="search__autocomplete-text">{{option.title}}</span>
             </mat-option>
           </mat-autocomplete>
         </div>
-        <div class="search-container--cross-container">
-          <fa-icon class=" search-container--cross-container__reset-cross" *ngIf="autoCompleteSearchQueryText"
-                   (click)="resetForm()"
-                   [icon]="faTimes">
-          </fa-icon>
-        </div>
+        <fa-icon class="search__reset-cross"
+                 *ngIf="autoCompleteSearchQueryText"
+                 (click)="resetForm()"
+                 [icon]="faTimes">
+        </fa-icon>
       </div>
     </mat-form-field>
   </form>

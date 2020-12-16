@@ -1,8 +1,50 @@
-.feed-title{
-  font-weight: 700;
+.feed-card {
+  background-color: dimgrey;
+  color: white;
+  margin: 50px;
+  padding: 40px 20px 60px 20px;
 
-  &:hover{
-    text-decoration: underline;
-    cursor: pointer;
+  &__title {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 26px;
+    margin-top: 20px;
+
+    &__icon {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  &__description {
+    margin-left: 40px;
+    margin-right: 20px;
+    font-size: 18px;
+  }
+
+  &__date {
+    position: relative;
+    top: 10px;
+    margin-left: 50px;
+    color: #bababa;
+  }
+
+  &__button-container {
+    float: right;
+    right: 30px;
+    position: relative;
+    padding-bottom: 10px;
+
+    &__button {
+      margin: 5px;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
   }
 }

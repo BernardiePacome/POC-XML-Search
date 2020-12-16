@@ -6,7 +6,9 @@
     <div class="col-9 feed-info-container__info">
       <div class="feed-info-container__info__title">{{displayedFeedEntry.title}}</div>
       <div class="feed-info-container__info__description">{{displayedFeedEntry.description}}</div>
-      <a class="feed-info-container__info__link" href="{{displayedFeedEntry.link}}">{{displayedFeedEntry.link}}</a>
+      <a mat-raised-button class="feed-info-container__info__button" color="primary" href="{{displayedFeedEntry.link}}">
+        Lire l'article
+      </a>
     </div>
   </div>
 </div>

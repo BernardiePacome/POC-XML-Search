@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FeedService } from '../../feed.service';
 import { Feed } from '../../model/feed';
 import { FeedEntry } from '../../model/feed-entry';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons/faExclamationCircle';
 
 @Component({
   selector: 'app-feed',
@@ -11,12 +12,15 @@ import { FeedEntry } from '../../model/feed-entry';
 export class FeedComponent implements OnInit {
   constructor(private fs: FeedService) {}
 
+  faExclamationCircle = faExclamationCircle;
+
   rssFeed: Feed = {};
   displayedSearchResults: FeedEntry[] | undefined;
   searching = false;
   hasResults = true;
 
   ngOnInit(): void {
+    // API call to retrieve RSS feed.
     this.fs.getXMLFile().subscribe((res) => {
       this.rssFeed = this.fs.parseXMLFiletoFeed(res);
     });

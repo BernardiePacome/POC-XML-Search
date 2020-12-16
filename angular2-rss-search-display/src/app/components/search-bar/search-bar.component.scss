@@ -2,7 +2,7 @@ mat-toolbar {
   position: relative;
   top: 20px;
   color: white;
-  background-color: darkblue;
+  background-color: #2e3c81;
   border-radius: 10px;
   height: 90px;
   margin-right: auto;
@@ -14,23 +14,39 @@ mat-toolbar {
 form, mat-form-field {
   width: 100%;
 }
-.search-container{
 
-  padding:0;
+.search {
+  padding: 0;
   display: flex;
-  &--text-container{
+
+  &__search-icon {
+    position: relative;
+    float: right;
+    font-size: 25px;
+    right: 15px;
+  }
+
+  &__text-container {
     padding: 0;
     font-weight: 500;
-
-  }
-  &--cross-container{
-
-    &__reset-cross{
-      float:right;
-      font-size: 25px;
-    }
   }
 
+  &__reset-cross {
+    position: relative;
+    right: 20px;
+    float: right;
+    font-size: 25px;
+  }
+
+  &__newspaper-icon{
+    position: relative;
+    top: 3px;
+    font-size: 20px;
+  }
+
+  &__autocomplete-text{
+    margin-left: 12px;
+  }
 }
 
 

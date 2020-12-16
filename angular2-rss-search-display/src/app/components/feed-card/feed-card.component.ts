@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FeedEntry } from '../../model/feed-entry';
 import { FeedService } from '../../feed.service';
-
+import { faNewspaper } from '@fortawesome/free-solid-svg-icons/faNewspaper';
 @Component({
   selector: 'app-feed-card',
   templateUrl: './feed-card.component.html',
@@ -10,15 +10,17 @@ import { FeedService } from '../../feed.service';
 export class FeedCardComponent implements OnInit {
   @Input() items: FeedEntry[] | undefined;
 
-  constructor(private fs: FeedService) {}
+  faNewspaper = faNewspaper;
+
+  constructor(private feedService: FeedService) {}
 
   ngOnInit(): void {}
 
   /**
    * Opens the bottom sheet for the selected feed entry.
-   * @param feedEntry
+   * @param feedEntry The feed entry to display.
    */
   openFeedSheet(feedEntry: FeedEntry): void {
-    this.fs.openFeedSheet(feedEntry);
+    this.feedService.openFeedSheet(feedEntry);
   }
 }

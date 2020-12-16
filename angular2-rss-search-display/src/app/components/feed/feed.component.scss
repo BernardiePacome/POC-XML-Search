@@ -3,7 +3,41 @@ mat-toolbar {
   min-height: 50px;
 }
 
-.rss-search-container{
-  background-color: black;
+.rss-search-container {
+  background-color: #2d2d2d;
+  padding: 40px 0 40px 0;
+
+  &__feed-card {
+    margin-top: 40px;
+  }
+
+  &__results-counter {
+    float: right;
+    font-size: 16px;
+  }
+
+  &__feed-title {
+    padding: 20px 0 20px 0;
+  }
+
+  &__feed-description {
+    color: #656565;
+    margin-left: 10px;
+  }
+
+  &__no-results {
+    color: purple;
+    font-size: 17px;
+    text-align: center;
+    font-weight: bolder;
+    padding: 30px 0 30px 0;
+
+    &__icon {
+      position: relative;
+      top: 5px;
+      font-size: 30px;
+      padding-right: 10px;
+    }
+  }
 }
 

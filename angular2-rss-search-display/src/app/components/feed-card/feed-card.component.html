@@ -1,9 +1,19 @@
-<mat-card *ngFor="let item of items">
-    <mat-card-header>
-        <mat-card-title (click)="openFeedSheet(item)" class="feed-title">{{item.title}}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      {{item.description}}
-    </mat-card-content>
-  <mat-card-footer>{{item.publishDate}} {{item.link}}</mat-card-footer>
+<mat-card class="feed-card" *ngFor="let item of items">
+  <mat-card-header>
+    <mat-card-title>
+      <fa-icon class="feed-card__title__icon" [icon]="faNewspaper"></fa-icon>
+      <span (click)="openFeedSheet(item)" class="feed-card__title">{{item.title}}</span>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="feed-card__description">
+    {{item.description}}
+  </mat-card-content>
+  <mat-card-footer>
+    <span class="feed-card__date"> {{item.publishDate | date:'short'}}</span>
+    <div class="feed-card__button-container">
+      <button mat-flat-button class="feed-card__button-container__button" (click)="openFeedSheet(item)">Aperçu</button>
+      <a mat-raised-button class="feed-card__button-container__button" color="primary" href="{{item.link}}">
+        Lire l'article</a>
+    </div>
+  </mat-card-footer>
 </mat-card>

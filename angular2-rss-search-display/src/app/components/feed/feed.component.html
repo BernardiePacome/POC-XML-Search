@@ -5,14 +5,17 @@
 
   </app-search-bar>
 
-  <div class="container">
+  <div class="container rss-search-container__feed-card">
     <mat-card>
       <div *ngIf="!hasResults" class="rss-search-container__no-results">
-        Aucun Résultats Trouvés
+        <fa-icon [icon]="faExclamationCircle" class="rss-search-container__no-results__icon"></fa-icon>
+        Désolé, aucun résultat n'a été trouvé
       </div>
-      <mat-card-header></mat-card-header>
-      <mat-card-title>{{rssFeed.title}}</mat-card-title>
-      <mat-card-subtitle>{{rssFeed.description}}</mat-card-subtitle>
+      <span class="rss-search-container__results-counter" *ngIf="hasResults && searching && displayedSearchResults">
+        {{displayedSearchResults.length}} Résulats
+      </span>
+      <mat-card-title class="rss-search-container__feed-title">{{rssFeed.title}}</mat-card-title>
+      <mat-card-subtitle class="rss-search-container__feed-description">{{rssFeed.description}}</mat-card-subtitle>
       <mat-card-content>
         <app-feed-card [items]='searching ? displayedSearchResults : rssFeed.items'></app-feed-card>
       </mat-card-content>

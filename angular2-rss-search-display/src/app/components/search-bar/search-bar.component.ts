@@ -9,9 +9,11 @@ import {
 } from '@angular/core';
 import { FeedEntry } from '../../model/feed-entry';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { FeedService } from '../../feed.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
+import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
+import { faNewspaper } from '@fortawesome/free-solid-svg-icons/faNewspaper';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-search-bar',
@@ -20,30 +22,37 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 })
 export class SearchBarComponent implements OnInit {
   @ViewChild('autocompleteInput') autoCompleteInput: ElementRef | undefined;
+  @ViewChild(MatAutocompleteTrigger) autoCompleteTrigger:
+    | MatAutocompleteTrigger
+    | undefined;
 
   @Input() matAutoComplete: any;
+
   @Output() selectedFeedEntry = new EventEmitter<FeedEntry>();
   @Output() searchQueryList = new EventEmitter<FeedEntry[]>();
   @Output() setSearchResults = new EventEmitter<FeedEntry[]>();
 
   faTimes = faTimes;
+  faSearch = faSearch;
+  faNewspaper = faNewspaper;
+
   feeds: FeedEntry[] | undefined;
   myFormControl = new FormControl();
   autoCompleteList: any[] | undefined;
   searchResults: FeedEntry[] | undefined = [];
   autoCompleteSearchQueryText = '';
   searchQueryText = '';
-  isSearchState = false;
 
-  constructor(private fs: FeedService) {}
+  constructor(private feedService: FeedService) {}
 
   ngOnInit(): void {
     this.myFormControl.valueChanges.subscribe((userInput) => {
       this.autoCompleteList = this.filterByTitle(userInput);
       this.autoCompleteSearchQueryText = userInput;
     });
-    this.fs.getXMLFile().subscribe((res) => {
-      this.feeds = this.fs.parseXMLFiletoFeed(res).items;
+    // API  calls to retrieve RSS feed.
+    this.feedService.getXMLFile().subscribe((res) => {
+      this.feeds = this.feedService.parseXMLFiletoFeed(res).items;
     });
   }
 
@@ -63,7 +72,7 @@ export class SearchBarComponent implements OnInit {
   }
 
   /**
-   * filter by title and description for displaying the search results.
+   * Filter feed entries by title and description for displaying the search results.
    * @param event Keyboard Input event.
    */
   searchFeed(event: any): void {
@@ -83,6 +92,7 @@ export class SearchBarComponent implements OnInit {
         )
       );
     }
+    this.autoCompleteTrigger?.closePanel();
   }
 
   /**
@@ -90,15 +100,15 @@ export class SearchBarComponent implements OnInit {
    * @param feedEntry Feed entry to display.
    */
   showSelectedFeedEntry(feedEntry: FeedEntry): void {
-    this.fs.openFeedSheet(feedEntry);
+    this.feedService.openFeedSheet(feedEntry);
   }
 
   /**
-   * resets the search bar text input to empty.
+   * Resets the search bar text input to empty.
    */
   resetForm(): void {
+    this.autoCompleteTrigger?.closePanel();
     this.myFormControl.patchValue('');
     this.autoCompleteSearchQueryText = '';
-    this.isSearchState = false;
   }
 }

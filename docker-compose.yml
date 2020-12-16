@@ -1,11 +1,6 @@
 version: '3.8'
 
 services:
-    adminer:
-        image: adminer
-        restart: on-failure
-        ports:
-            - '8080:8080'
     nginx:
         image: nginx:1.19.0-alpine
         restart: on-failure
@@ -26,4 +21,3 @@ services:
         env_file:
             - .env
         user: 1000:1000
-    

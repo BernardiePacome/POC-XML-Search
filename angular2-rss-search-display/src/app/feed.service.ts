@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment.prod';
 import { Feed } from './model/feed';
@@ -15,7 +15,7 @@ export class FeedService {
   constructor(private http: HttpClient, private bottomSheet: MatBottomSheet) {}
 
   /**
-   * returns observer to retreive API response for the RSS feed.
+   * returns observer to retrieve API response for the RSS feed.
    */
   public getXMLFile(): Observable<any> {
     return this.http.get(environment.api_url + '/xml');
